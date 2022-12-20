@@ -9,38 +9,39 @@ import {
   Input,
   Spinner,
   Stack,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { isAuth } from "../../redux/AuthUser/actions";
+import {useRouter} from "next/router";
+import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {isAuth} from "../../redux/AuthUser/actions";
 const obj = {
   email: "",
-    password: "",
-  status:false
+  password: "",
+  status: false,
 };
 const Logging = () => {
   const toast = useToast();
   const dispatch = useDispatch();
   const [load, setLoad] = useState(false);
   const [text, setText] = useState(obj);
-const router =useRouter()
+  const router = useRouter();
   const handleChange = (e) => {
-      const { type, checked, value, name } = e.target;
-      const inputValue = type === "checkbox" ? checked : value;
+    const {type, checked, value, name} = e.target;
+    const inputValue = type === "checkbox" ? checked : value;
     setText({...text, [name]: inputValue});
   };
 
-  const {email, password,status} = text;
-  
-    console.log("ok",text)
-  const handleSubmit = async() => {
+  const {email, password, status} = text;
+
+  console.log("ok", text);
+  const handleSubmit = async () => {
     if (email !== "" && password !== "") {
       setLoad(true);
-    await axios.post("/api/auth/login",{email,password,status})
+      await axios
+        .post("/api/auth/login", {email, password, status})
         .then((res) => {
           setLoad(false);
           toast({
@@ -51,7 +52,7 @@ const router =useRouter()
             isClosable: true,
           });
           dispatch(isAuth());
-          router.back()
+          router.back();
         })
         .catch((err) => {
           setLoad(false);
@@ -64,8 +65,6 @@ const router =useRouter()
             isClosable: true,
           });
         });
-
-      setText(obj);
     } else {
       toast({
         title: "Input fields first",
