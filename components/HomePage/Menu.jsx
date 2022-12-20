@@ -1,43 +1,46 @@
-import React from "react";
+import {EditIcon, HamburgerIcon, UnlockIcon} from "@chakra-ui/icons";
 import {
-  IconButton,
-  useDisclosure,
+  Box,
+  Button,
   Drawer,
   DrawerBody,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  Button,
-  Box,
   Heading,
-  Link,
+  IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
-import {EditIcon, HamburgerIcon, UnlockIcon} from "@chakra-ui/icons";
-import {IoIosBed} from "react-icons/io";
-import {MdFlightTakeoff} from "react-icons/md";
-import {FaPlaceOfWorship, FaTaxi} from "react-icons/fa";
+import Link from "next/link";
+import React from "react";
 // import {useDispatch, useSelector} from "react-redux";
 // import {isNotAuth} from "../../redux/auth/auth.actions";
-
+import {useToast} from "@chakra-ui/react";
+import axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+import {isNotAuth} from "../../redux/AuthUser/actions";
 const MenuBar = () => {
   const {isOpen, onOpen, onClose} = useDisclosure();
-  //   const {login} = useSelector((store) => store.Authentication);
-  //   let changingBtn;
 
-  //   if (login) {
-  //     changingBtn = "Logout";
-  //   } else {
-  //     changingBtn = "Login";
-  //   }
-
-  //   const handleClick = () => {
-  //     if (changingBtn === "Logout") {
-  //       dispatch(isNotAuth());
-  //     } else {
-  //       navigate("/login");
-  //     }
-  //   };
-
+  const {login} = useSelector((store) => store.Authentication);
+  let changingBtn;
+  login ? (changingBtn = "Logout") : (changingBtn = "Login");
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const handleClick = async () => {
+    if (changingBtn === "Logout") {
+      await axios.post("/api/auth/logout").then((res) => {
+        dispatch(isNotAuth());
+        toast({
+          title: "logged out",
+          position: "top-right",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+        });
+      });
+    }
+  };
   return (
     <>
       <Button
@@ -82,14 +85,14 @@ const MenuBar = () => {
                   p={2}
                   color={"white"}
                   outlineColor={"white"}
-                  _hover={{border: "none"}}
+                  _hover={{ border: "none" }}
+                  onClick={handleClick}
                 >
                   <UnlockIcon color={"white"} mr={2} />
-                  {/* {changingBtn} */}
-                  Login
+                  {changingBtn}
                 </Button>
               </Link>
-              <Link href="/signup">
+              <Link href="/register">
                 <Button
                   w="fit-content"
                   p={2}
@@ -109,35 +112,36 @@ const MenuBar = () => {
             gap={10}
             scrollBehavior={"smooth"}
             p={3}
+            justifyContent={{base: "none", md: "space-around"}}
             display={"flex"}
             fontFamily="fantasy"
           >
-            <Link to="/category/bestseller">
+            <Link href="/category/bestseller">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 BestSeller
               </Box>
             </Link>
-            <Link to="/category/skincare">
+            <Link href="/category/skincare">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 SkinCare
               </Box>
             </Link>
-            <Link to="/category/makeup">
+            <Link href="/category/makeup">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 Makeup
               </Box>
             </Link>
-            <Link to="/category/haircare">
+            <Link href="/category/haircare">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 HairCare
               </Box>
             </Link>
-            <Link to="/category/bathbody">
+            <Link href="/category/bathbody">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 Bath&Body
               </Box>
             </Link>
-            <Link to="/category/perfume">
+            <Link href="/category/perfume">
               <Box display={"flex"} flexDir="column" alignItems={"center"}>
                 Fragrance
               </Box>
