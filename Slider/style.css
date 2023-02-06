@@ -1,0 +1,87 @@
+body {
+  background-color: bisque;
+}
+#opo {
+  width: 100%;
+  margin: auto;
+}
+#al {
+  width: 60%;
+  margin: auto;
+  height: auto;
+}
+h1 {
+  width: 50%;
+  margin: auto;
+  background-color: rgb(38, 151, 83);
+  display: flex;
+  justify-content: center;
+  border-radius: 9px;
+  padding: 10px;
+  margin-top: 10px;
+}
+#ololo {
+  width: 100%;
+  height: 550px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
+    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-radius: 8px;
+}
+.op {
+  width: 30%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+button {
+  padding: 10px;
+  background-color: navy;
+  color: white;
+  font-weight: 800;
+}
+.right {
+  background-color: transparent;
+  color: rgb(220, 202, 202);
+  border: none;
+  font-size: 24px;
+}
+.right:hover {
+  background-color: black;
+  color: white;
+}
+.left:hover {
+  background-color: black;
+  color: white;
+}
+.left {
+  background-color: transparent;
+  color: rgb(220, 202, 202);
+  border: none;
+  font-size: 24px;
+}
+
+#lolo {
+  width: 60%;
+
+  position: absolute;
+  bottom: 40%;
+  left: 20%;
+  display: flex;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 600px) {
+  #al {
+    width: 100%;
+    margin-top: 40px;
+  }
+  body {
+    background-color: beige;
+  }
+  #ololo {
+    height: 500px;
+    border-radius: 7px;
+  }
+}
